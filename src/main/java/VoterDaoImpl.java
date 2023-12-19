@@ -1,36 +1,44 @@
+import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
-public class VoterDaoImpl implements VoterDao{
-    private Connection connection;
+public class VoterDaoImpl implements VoterDao {
+    private final Connection connection;
 
-    Public VoterDaoImpl(Connection connection){
+    public VoterDaoImpl(Connection connection) {
         this.connection = connection;
     }
+
     @Override
     public void addVoter(Voter voter) {
-        try(PreparedStatement statement = connection.preparedStatement("INSERT INTO voters (voterName, age, party, dob, candidate) VALUES (?,?,?,?,?)");){
-            statement.setString(2,voter.getVoterName());
-            statement.setInt(3,voter.getAge());
-            statement.setString(4,voter.getParty());
-            statement.setInt(5,voter.getDob());
-            statement.setString(6,voter.getCandidate());
+        try (PreparedStatement statement = connection.prepareStatement("INSERT INTO voters (voterName, age, party, dob, candidate) VALUES (?,?,?,?,?)");) {
+            statement.setString(2, voter.getVoterName());
+            statement.setInt(3, voter.getAge());
+            statement.setString(4, voter.getParty());
+            statement.setInt(5, voter.getDob());
+            statement.setString(6, voter.getCandidate());
 
             statement.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     @Override
     public void updateVoter(Voter voter) {
-        try(PreparedStatement statement = connection.prepareStatement("UPDATE voters SET voterId = ?, voterName = ?, age = ?, party = ?, dob = ?, candidate = ? WHERE voterId = ?");){
-                    statement.setInt(1,voter.getVoterId());
-                    statement.setString(2,voter.getVoterName());
-                    statement.setInt(3,voter.getAge());
-                    statement.setString(4,voter.getParty());
-                    statement.setInt(5,voter.getDob());
-                    statement.setString(6,voter.getCandidate());
-                    statement.setInt(7,voter.getVoterId());
+        try (PreparedStatement statement = connection.prepareStatement("UPDATE voters SET voterId = ?, voterName = ?, age = ?, party = ?, dob = ?, candidate = ? WHERE voterId = ?");) {
+            statement.setInt(1, voter.getVoterId());
+            statement.setString(2, voter.getVoterName());
+            statement.setInt(3, voter.getAge());
+            statement.setString(4, voter.getParty());
+            statement.setInt(5, voter.getDob());
+            statement.setString(6, voter.getCandidate());
+            statement.setInt(7, voter.getVoterId());
 
-                    statement.executeUpdate();
+            statement.executeUpdate();
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
@@ -49,7 +57,7 @@ public class VoterDaoImpl implements VoterDao{
     }
 
     @Override
-    public Voter getVoterById(int voterId){
+    public Voter getVoterById(int voterId) {
         Voter voter = null;
         try (PreparedStatement statement = connection.prepareStatement("SELECT * FROM voters WHERE voterId = ?");) {
             statement.setInt(1, voterId);
@@ -61,14 +69,13 @@ public class VoterDaoImpl implements VoterDao{
                     int dob = rs.getInt("dob");
                     String candidate = rs.getString("candidate");
 
-                    voter = new Voter(voterId, voterName, age, party, dob, candidate);
+                    voter = new Voter(voterId, voterName, party, candidate, dob, age);
                 }
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
         return voter;
-        }
     }
     @Override
     public List<Voter> getAllVoters() {
@@ -84,13 +91,13 @@ public class VoterDaoImpl implements VoterDao{
                     int dob = rs.getInt("dob");
                     String candidate = rs.getString("candidate");
 
-                    Voter voter = new Voter(voterId, voterName, age, party, dob, candidate);
+                    Voter voter = new Voter(voterId, voterName, party, candidate, dob, age);
                     voters.add(voter);
                 }
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
-        return null;
+        return voters;
     }
 }

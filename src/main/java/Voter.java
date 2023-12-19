@@ -66,8 +66,8 @@ public class Voter {
                 '}';
     }
 
-    public Voter(String voterId, String voterName, String party, String candidate, int dob, int age) {
-            this.voterId = Integer.parseInt(voterId);
+    public Voter(int voterId, String voterName, String party, String candidate, int dob, int age) {
+            this.voterId = voterId;
             this.voterName = voterName;
             this.party = party;
             this.candidate = candidate;

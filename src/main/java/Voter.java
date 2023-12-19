@@ -73,9 +73,13 @@ public class Voter {
             this.candidate = candidate;
             this.dob = dob;
             this.age = age;
-
-
     }
 
-
+    public Voter(String voterName, String party, String candidate, int dob, int age) {
+        this.voterName = voterName;
+        this.party = party;
+        this.candidate = candidate;
+        this.dob = dob;
+        this.age = age;
+    }
 }

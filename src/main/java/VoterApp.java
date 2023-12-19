@@ -1,8 +1,10 @@
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Scanner;
-
 public class VoterApp {
 
-private static VoterDao voterDao = new VoterDaoImpl(JDBConnection.getConnection());
+  private static final VoterDao voterDao = new VoterDaoImpl(JDBConnection.getConnection());
 
 
   public static void main(String[] args) {/////////////START OF MAIN//////////////////
@@ -40,7 +42,7 @@ private static VoterDao voterDao = new VoterDaoImpl(JDBConnection.getConnection(
           readVoterById(input);
           break;
         case 5:
-          displayAllVoters(input):
+          displayAllVoters(input);
           break;
         case 6:
           System.out.println("Exiting application...");
@@ -55,14 +57,34 @@ private static VoterDao voterDao = new VoterDaoImpl(JDBConnection.getConnection(
   }///////////////////////////END OF MAIN///////////////////////////////////////////
 
   private static void displayAllVoters(Scanner input) {
+    for (Voter voter : voterDao.getAllVoters()) {
+      System.out.println(voter);
+    }
   }
 
   private static void readVoterById(Scanner input) {
-
+    System.out.println("Please enter a Voter ID you'd like to see.");
+    int voterId = input.nextInt();
+    input.nextLine();
+    Voter voter = voterDao.getVoterById(voterId);
+    if (voter == null) {
+      System.out.println("Voter not found");
+    } else {
+      System.out.println(voter);
+    }
   }
 
   private static void deleteVoter(Scanner input) {
-
+    System.out.println("Please enter Voter ID to delete");
+    int voterId = input.nextInt();
+    input.nextLine();
+    Voter voter = voterDao.getVoterById(voterId);
+    if (voter == null) {
+      System.out.println("Voter not found");
+    } else {
+      voterDao.deleteVoter(voterId);
+      System.out.println("Voter deleted successfully");
+    }
   }
 
   private static void updateVoter(Scanner input) {
@@ -85,6 +107,15 @@ private static VoterDao voterDao = new VoterDaoImpl(JDBConnection.getConnection(
       int age = input.nextInt();
       input.nextLine();
 
+      voter.setVoterName(voterName.isEmpty() ? voter.getVoterName() : voterName);
+      voter.setParty(party.isEmpty() ? voter.getParty() : party);
+      voter.setCandidate(candidate.isEmpty() ? voter.getCandidate() : candidate);
+      voter.setDob(dob == 0 ? voter.getDob() : dob);
+      voter.setAge(age == 0 ? voter.getAge() : age);
+
+      voterDao.updateVoter(voter);
+      System.out.println("Voter updated successfully!");
+      voterDao.getVoterById(voterId);
     }
   }
 

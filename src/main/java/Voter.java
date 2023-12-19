@@ -1,17 +1,17 @@
 public class Voter {
-    String voterId;
+    int voterId;
     String voterName;
     String party;
     String candidate;
     int dob;
     int age;
 
-    public String getVoterId() {
+    public int getVoterId() {
         return voterId;
     }
 
     public void setVoterId(String voterId) {
-        this.voterId = voterId;
+        this.voterId = Integer.parseInt(voterId);
     }
 
     public String getVoterName() {
@@ -67,7 +67,7 @@ public class Voter {
     }
 
     public Voter(String voterId, String voterName, String party, String candidate, int dob, int age) {
-            this.voterId = voterId;
+            this.voterId = Integer.parseInt(voterId);
             this.voterName = voterName;
             this.party = party;
             this.candidate = candidate;

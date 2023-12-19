@@ -6,5 +6,76 @@ public class Voter {
     int dob;
     int age;
 
+    public String getVoterId() {
+        return voterId;
+    }
+
+    public void setVoterId(String voterId) {
+        this.voterId = voterId;
+    }
+
+    public String getVoterName() {
+        return voterName;
+    }
+
+    public void setVoterName(String voterName) {
+        this.voterName = voterName;
+    }
+
+    public String getParty() {
+        return party;
+    }
+
+    public void setParty(String party) {
+        this.party = party;
+    }
+
+    public String getCandidate() {
+        return candidate;
+    }
+
+    public void setCandidate(String candidate) {
+        this.candidate = candidate;
+    }
+
+    public int getDob() {
+        return dob;
+    }
+
+    public void setDob(int dob) {
+        this.dob = dob;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+    @Override
+    public String toString() {
+        return "Voter{" +
+                "voterId='" + voterId + '\'' +
+                ", voterName='" + voterName + '\'' +
+                ", party='" + party + '\'' +
+                ", candidate='" + candidate + '\'' +
+                ", dob=" + dob +
+                ", age=" + age +
+                '}';
+    }
+
+    public Voter(String voterId, String voterName, String party, String candidate, int dob, int age) {
+            this.voterId = voterId;
+            this.voterName = voterName;
+            this.party = party;
+            this.candidate = candidate;
+            this.dob = dob;
+            this.age = age;
+
+
+    }
+
 
 }

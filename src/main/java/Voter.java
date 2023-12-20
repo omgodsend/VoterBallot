@@ -3,7 +3,7 @@ public class Voter {
     String voterName;
     String party;
     String candidate;
-    int dob;
+    String dob;
     int age;
 
     public int getVoterId() {
@@ -38,11 +38,11 @@ public class Voter {
         this.candidate = candidate;
     }
 
-    public int getDob() {
+    public String getDob() {
         return dob;
     }
 
-    public void setDob(int dob) {
+    public void setDob(String dob) {
         this.dob = dob;
     }
 
@@ -66,7 +66,7 @@ public class Voter {
                 '}';
     }
 
-    public Voter(int voterId, String voterName, String party, String candidate, int dob, int age) {
+    public Voter(int voterId, String voterName, String party, String candidate, String dob, int age) {
             this.voterId = voterId;
             this.voterName = voterName;
             this.party = party;
@@ -75,7 +75,7 @@ public class Voter {
             this.age = age;
     }
 
-    public Voter(String voterName, String party, String candidate, int dob, int age) {
+    public Voter(String voterName, String party, String candidate, String dob, int age) {
         this.voterName = voterName;
         this.party = party;
         this.candidate = candidate;

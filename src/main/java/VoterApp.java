@@ -102,7 +102,7 @@ public class VoterApp {
       System.out.println("Enter candidate's name (or press enter to skip):");
       String candidate = input.nextLine();
       System.out.println("Enter voter's date of birth (or press enter to skip):");
-      int dob = input.nextInt();
+      String dob = input.nextLine();
       System.out.println("Enter voter's age (or press enter to skip):");
       int age = input.nextInt();
       input.nextLine();
@@ -110,7 +110,7 @@ public class VoterApp {
       voter.setVoterName(voterName.isEmpty() ? voter.getVoterName() : voterName);
       voter.setParty(party.isEmpty() ? voter.getParty() : party);
       voter.setCandidate(candidate.isEmpty() ? voter.getCandidate() : candidate);
-      voter.setDob(dob == 0 ? voter.getDob() : dob);
+      voter.setDob(dob.isEmpty() ? voter.getDob() : dob);
       voter.setAge(age == 0 ? voter.getAge() : age);
 
       voterDao.updateVoter(voter);
@@ -126,8 +126,8 @@ public class VoterApp {
     String party = input.nextLine();
     System.out.println("Please enter the voter's candidate");
     String candidate = input.nextLine();
-    System.out.println("Please enter the voter's Date of Birth");
-    int dob = input.nextInt();
+    System.out.println("Please enter the voter's Date of Birth YYYY-MM-DD");
+    String dob = input.nextLine();
     System.out.println("Please enter the voter's age");
     int age = input.nextInt();
 

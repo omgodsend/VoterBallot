@@ -14,12 +14,12 @@ public class VoterDaoImpl implements VoterDao {
 
     @Override
     public void addVoter(Voter voter) {
-        try (PreparedStatement statement = connection.prepareStatement("INSERT INTO voters (voterName, age, party, dob, candidate) VALUES (?,?,?,?,?)");) {
-            statement.setString(2, voter.getVoterName());
-            statement.setInt(3, voter.getAge());
-            statement.setString(4, voter.getParty());
-            statement.setInt(5, voter.getDob());
-            statement.setString(6, voter.getCandidate());
+        try (PreparedStatement statement = connection.prepareStatement("INSERT INTO voters (voterName, age, party, date_of_birth, candidate) VALUES (?,?,?,?,?)");) {
+            statement.setString(1, voter.getVoterName());
+            statement.setInt(2, voter.getAge());
+            statement.setString(3, voter.getParty());
+            statement.setString(4, voter.getDob());
+            statement.setString(5, voter.getCandidate());
 
             statement.executeUpdate();
         } catch (SQLException e) {
@@ -29,12 +29,12 @@ public class VoterDaoImpl implements VoterDao {
 
     @Override
     public void updateVoter(Voter voter) {
-        try (PreparedStatement statement = connection.prepareStatement("UPDATE voters SET voterId = ?, voterName = ?, age = ?, party = ?, dob = ?, candidate = ? WHERE voterId = ?");) {
+        try (PreparedStatement statement = connection.prepareStatement("UPDATE voters SET voterId = ?, voterName = ?, age = ?, party = ?, date_of_birth = ?, candidate = ? WHERE voterId = ?");) {
             statement.setInt(1, voter.getVoterId());
             statement.setString(2, voter.getVoterName());
             statement.setInt(3, voter.getAge());
             statement.setString(4, voter.getParty());
-            statement.setInt(5, voter.getDob());
+            statement.setString(5, voter.getDob());
             statement.setString(6, voter.getCandidate());
             statement.setInt(7, voter.getVoterId());
 
@@ -66,7 +66,7 @@ public class VoterDaoImpl implements VoterDao {
                     String voterName = rs.getString("voterName");
                     int age = rs.getInt("age");
                     String party = rs.getString("party");
-                    int dob = rs.getInt("dob");
+                    String dob = rs.getString("date_of_birth");
                     String candidate = rs.getString("candidate");
 
                     voter = new Voter(voterId, voterName, party, candidate, dob, age);
@@ -88,7 +88,7 @@ public class VoterDaoImpl implements VoterDao {
                     String voterName = rs.getString("voterName");
                     int age = rs.getInt("age");
                     String party = rs.getString("party");
-                    int dob = rs.getInt("dob");
+                    String dob = rs.getString("date_of_birth");
                     String candidate = rs.getString("candidate");
 
                     Voter voter = new Voter(voterId, voterName, party, candidate, dob, age);
